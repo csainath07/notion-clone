@@ -19,7 +19,7 @@ const GET_NEW_BLANK_BLOCK = () => ({
   html: "",
 });
 
-class NotionClone extends Component {
+class EditablePage extends Component {
   state = {
     blocks: [GET_NEW_BLANK_BLOCK()],
   };
@@ -94,4 +94,4 @@ class NotionClone extends Component {
   };
 }
 
-export default NotionClone;
+export default EditablePage;

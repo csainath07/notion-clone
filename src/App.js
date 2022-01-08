@@ -1,4 +1,4 @@
-import NotionClone from "./NotionClone/NotionClone";
+import EditablePage from "./EditablePage/EditablePage";
 import "./App.css";
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <div className="wrapper">
         <h1>Notion Clone</h1>
-        <NotionClone />
+        <EditablePage />
       </div>
     </div>
   );
