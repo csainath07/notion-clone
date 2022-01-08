@@ -24,11 +24,13 @@
 }
 
 .blockOptions {
+  min-width: 50px;
   margin-right: 10px;
   visibility: hidden;
   color: #808080;
   cursor: pointer;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
 }
 

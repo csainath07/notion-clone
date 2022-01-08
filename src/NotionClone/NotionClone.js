@@ -27,9 +27,7 @@ class NotionClone extends Component {
   // Adding new block
   addNewContentBlockHandler = ({ currentBlockId, currentBlockRef }) => {
     const _blocks = [...this.state.blocks];
-    const currentBlockIndex = _blocks.findIndex(
-      (block) => block.id === currentBlockId
-    );
+    const currentBlockIndex = this._getCurrentBlockIndex(currentBlockId);
     if (currentBlockIndex !== -1) {
       _blocks.splice(currentBlockIndex + 1, 0, GET_NEW_BLANK_BLOCK());
       this.setState(
@@ -46,11 +44,21 @@ class NotionClone extends Component {
   // Updating blocks
   updateContentBlocksHandler = (updatedBlock) => {
     const _blocks = [...this.state.blocks];
-    const updatedBlockIndex = _blocks.findIndex(
-      (block) => block.id === updatedBlock.id
-    );
+    const updatedBlockIndex = this._getCurrentBlockIndex(updatedBlock.id);
     if (updatedBlockIndex !== 1) {
       _blocks[updatedBlockIndex] = { ...updatedBlock };
+      this.setState({
+        blocks: [..._blocks],
+      });
+    }
+  };
+
+  // Delete Block
+  deleteContentBlockHandler = ({ currentBlockId }) => {
+    const _blocks = [...this.state.blocks];
+    const currentBlockIndex = this._getCurrentBlockIndex(currentBlockId);
+    if (currentBlockIndex !== -1) {
+      _blocks.splice(currentBlockIndex, 1);
       this.setState({
         blocks: [..._blocks],
       });
@@ -65,6 +73,7 @@ class NotionClone extends Component {
             key={block.id}
             data={block}
             isDeleteOptionVisible={this.state.blocks.length > 1}
+            onDeleteBlock={this.deleteContentBlockHandler}
             onUpdateBlock={this.updateContentBlocksHandler}
             onAddNewBlock={this.addNewContentBlockHandler}
           />
@@ -77,6 +86,11 @@ class NotionClone extends Component {
   _getNextContentEditableBlockRef = (currentBlockRef) => {
     return currentBlockRef?.parentElement?.parentElement?.nextElementSibling
       ?.children?.[1]?.children?.[0];
+  };
+
+  _getCurrentBlockIndex = (currentBlockId) => {
+    const _blocks = [...this.state.blocks];
+    return _blocks.findIndex((block) => block.id === currentBlockId);
   };
 }
 

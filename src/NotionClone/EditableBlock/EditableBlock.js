@@ -81,7 +81,11 @@ class EditableBlock extends Component {
             onClick={this._addNewBlock}
           />
           {this.props.isDeleteOptionVisible ? (
-            <Trash2 size={16} className={Styles.removeBlockIcon} />
+            <Trash2
+              size={16}
+              className={Styles.removeBlockIcon}
+              onClick={this._deleteBlock}
+            />
           ) : (
             ""
           )}
@@ -109,6 +113,12 @@ class EditableBlock extends Component {
     this.props.onAddNewBlock({
       currentBlockId: this.state.data.id,
       currentBlockRef: this.currentBlockRef.current,
+    });
+  };
+
+  _deleteBlock = () => {
+    this.props.onDeleteBlock({
+      currentBlockId: this.state.data.id,
     });
   };
 }
