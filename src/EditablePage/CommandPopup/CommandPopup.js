@@ -1,4 +1,4 @@
-import { Bold, Type, Image, Film, Volume2 } from "react-feather";
+import { Bold, Type, Image, Film, Volume2, Bookmark } from "react-feather";
 import { BLOCK_TYPES } from "../../utils/constants";
 import Styles from "./_.module.css";
 
@@ -80,6 +80,14 @@ const COMMANDS = {
         subText: "Upload or Embed with link",
         tag: "div",
         type: BLOCK_TYPES["AUDIO"],
+      },
+      {
+        id: "command-media_bookmark",
+        icon: <Bookmark size={20} />,
+        label: "Bookmark Web Url",
+        subText: "Bookmark web url",
+        tag: "div",
+        type: BLOCK_TYPES["BOOKMARK"],
       },
     ],
   },

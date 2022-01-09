@@ -5,7 +5,7 @@ import Styles from "./_.module.css";
 
 /** To calculate unique id for each block */
 const uid = () => {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  return Date.now().toString(36) + Math.random().toString(36);
 };
 
 /** Blank block details object */
@@ -19,6 +19,7 @@ const GET_NEW_BLANK_BLOCK = () => ({
     imageEmbedUrl: "",
     videoEmbedUrl: "",
     audioEmbedUrl: "",
+    bookmarkEmbedUrl: "",
   },
 });
 

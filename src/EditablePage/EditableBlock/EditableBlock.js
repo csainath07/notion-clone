@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import ContentEditable from "react-contenteditable";
 import { Plus, Trash2 } from "react-feather";
-import { ImageBlock, VideoBlock, AudioBlock } from "../MediaBlocks";
+import {
+  ImageBlock,
+  VideoBlock,
+  AudioBlock,
+  BookmarkBlock,
+} from "../MediaBlocks";
 import CommandPopup from "../CommandPopup/CommandPopup";
 import { BLOCK_TYPES } from "../../utils/constants";
 
@@ -81,6 +86,7 @@ class EditableBlock extends Component {
       case BLOCK_TYPES["IMAGE"]:
       case BLOCK_TYPES["VIDEO"]:
       case BLOCK_TYPES["AUDIO"]:
+      case BLOCK_TYPES["BOOKMARK"]:
         this._handleCommandTagChangeApply({
           tag: command.tag,
           doCurrentRefFocus: false,
@@ -137,6 +143,13 @@ class EditableBlock extends Component {
       case BLOCK_TYPES["AUDIO"]:
         return (
           <AudioBlock
+            data={block}
+            onEmbedLinkSubmit={this.onEmbedLinkSubmitHandler}
+          />
+        );
+      case BLOCK_TYPES["BOOKMARK"]:
+        return (
+          <BookmarkBlock
             data={block}
             onEmbedLinkSubmit={this.onEmbedLinkSubmitHandler}
           />

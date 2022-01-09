@@ -3,4 +3,5 @@ export const BLOCK_TYPES = {
   IMAGE: "image",
   VIDEO: "video",
   AUDIO: "audio",
+  BOOKMARK: "bookmark",
 };
