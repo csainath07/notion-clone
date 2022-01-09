@@ -17,6 +17,7 @@ const GET_NEW_BLANK_BLOCK = () => ({
     innerHtml: "",
     htmlCode: "",
     imageEmbedUrl: "",
+    videoEmbedUrl: "",
   },
 });
 
@@ -123,6 +124,7 @@ class EditablePage extends Component {
       );
     }
   };
+
   _getNextContentEditableBlockRef = (currentBlockRef) => {
     return currentBlockRef?.parentElement?.parentElement?.nextElementSibling
       ?.children?.[1]?.children?.[0];

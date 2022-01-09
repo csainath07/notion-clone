@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ContentEditable from "react-contenteditable";
 import { Plus, Trash2 } from "react-feather";
-import { ImageBlock } from "../MediaBlocks";
+import { ImageBlock, VideoBlock } from "../MediaBlocks";
 import CommandPopup from "../CommandPopup/CommandPopup";
 import { BLOCK_TYPES } from "../../utils/constants";
 
@@ -79,16 +79,16 @@ class EditableBlock extends Component {
         });
         break;
       case BLOCK_TYPES["IMAGE"]:
+      case BLOCK_TYPES["VIDEO"]:
         this._handleCommandTagChangeApply({
           tag: command.tag,
           doCurrentRefFocus: false,
           callBackFn: this.props.onAddNewMediaBlock({
             currentBlockId: this.state?.data?.id,
             currentBlockRef: this.currentBlockRef?.current,
-            type: BLOCK_TYPES["IMAGE"],
+            type: command.type,
           }),
         });
-
         break;
       default:
         return;
@@ -96,20 +96,17 @@ class EditableBlock extends Component {
   };
 
   onEmbedImageLinkSubmitHandler = ({ embedLink }) => {
-    this.setState(
-      {
-        data: {
-          ...this.state.data,
-          content: {
-            ...this.state.data.content,
-            imageEmbedUrl: embedLink,
-          },
-        },
-      },
-      () => {
-        this.props.onUpdateBlock(this.state.data);
-      }
-    );
+    this._updateContentObject({
+      name: "imageEmbedUrl",
+      value: embedLink,
+    });
+  };
+
+  onEmbedVideoLinkSubmitHandler = ({ embedLink }) => {
+    this._updateContentObject({
+      name: "videoEmbedUrl",
+      value: embedLink,
+    });
   };
 
   /** Render different type of command blocks */
@@ -134,6 +131,13 @@ class EditableBlock extends Component {
           <ImageBlock
             data={block}
             onEmbedLinkSubmit={this.onEmbedImageLinkSubmitHandler}
+          />
+        );
+      case BLOCK_TYPES["VIDEO"]:
+        return (
+          <VideoBlock
+            data={block}
+            onEmbedLinkSubmit={this.onEmbedVideoLinkSubmitHandler}
           />
         );
       default:
@@ -208,6 +212,24 @@ class EditableBlock extends Component {
       }
     );
   };
+
+  _updateContentObject = ({ name, value }) => {
+    this.setState(
+      {
+        data: {
+          ...this.state.data,
+          content: {
+            ...this.state.data.content,
+            [name]: value,
+          },
+        },
+      },
+      () => {
+        this.props.onUpdateBlock(this.state.data);
+      }
+    );
+  };
+
   _isPlaceholderVisible = (content, _type) =>
     _type === BLOCK_TYPES["HTML"] &&
     (content?.innerHtml === "" || content?.innerHtml === "<br>");
