@@ -45,3 +45,13 @@ svg.addBlockIcon:hover {
 svg.removeBlockIcon:hover {
   color: #f00;
 }
+
+.editableBlockContainer h1,
+.editableBlockContainer h2,
+.editableBlockContainer h3 {
+  margin-top: 0;
+}
+
+.editableBlockContainer strong {
+  display: block;
+}

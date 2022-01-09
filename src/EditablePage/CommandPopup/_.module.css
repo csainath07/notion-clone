@@ -1,0 +1,40 @@
+.commandPopupContainer {
+  width: auto;
+  min-width: 300px;
+  max-height: 300px;
+  border: 1px solid #808080;
+  overflow-y: auto;
+  position: absolute;
+  z-index: 3;
+}
+
+.commandPopupContainer dl {
+  margin: 0;
+}
+
+.commandPopupContainer dt {
+  padding: 10px;
+  background: #808080;
+  color: #fff;
+}
+
+.commandPopupContainer dd {
+  margin: 0;
+  padding: 8px;
+}
+
+.commandPopupContainer dd:hover,
+.commandPopupContainer dd:focus {
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+.commandInfo span {
+  font-size: 16px;
+}
+
+.commandInfo p {
+  margin-top: 3px;
+  font-size: 12px;
+  color: rgba(55, 53, 47, 0.6);
+}

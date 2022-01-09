@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <div className="wrapper">
-        <h1>Notion Clone</h1>
+        <h1 style={{ marginLeft: "60px" }}>Notion Clone</h1>
         <EditablePage />
       </div>
     </div>
