@@ -1,4 +1,4 @@
-import { Bold, Edit2, Image, Film } from "react-feather";
+import { Bold, Edit2, Image, Film, Volume2 } from "react-feather";
 import { BLOCK_TYPES } from "../../utils/constants";
 import Styles from "./_.module.css";
 
@@ -72,6 +72,14 @@ const COMMANDS = {
         subText: "Upload or Embed with link",
         tag: "div",
         type: BLOCK_TYPES["VIDEO"],
+      },
+      {
+        id: "command-media_audio",
+        icon: <Volume2 size={20} />,
+        label: "Audio",
+        subText: "Upload or Embed with link",
+        tag: "div",
+        type: BLOCK_TYPES["AUDIO"],
       },
     ],
   },

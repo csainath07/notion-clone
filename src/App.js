@@ -13,3 +13,8 @@ function App() {
 }
 
 export default App;
+
+// for testing
+// https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3
+// https://cdn.pixabay.com/photo/2021/10/07/15/12/wine-6688901_1280.jpg
+// https://www.youtube.com/watch?v=oO9lLFZrWcQ

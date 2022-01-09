@@ -18,6 +18,7 @@ const GET_NEW_BLANK_BLOCK = () => ({
     htmlCode: "",
     imageEmbedUrl: "",
     videoEmbedUrl: "",
+    audioEmbedUrl: "",
   },
 });
 

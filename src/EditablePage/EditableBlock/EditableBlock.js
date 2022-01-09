@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ContentEditable from "react-contenteditable";
 import { Plus, Trash2 } from "react-feather";
-import { ImageBlock, VideoBlock } from "../MediaBlocks";
+import { ImageBlock, VideoBlock, AudioBlock } from "../MediaBlocks";
 import CommandPopup from "../CommandPopup/CommandPopup";
 import { BLOCK_TYPES } from "../../utils/constants";
 
@@ -80,6 +80,7 @@ class EditableBlock extends Component {
         break;
       case BLOCK_TYPES["IMAGE"]:
       case BLOCK_TYPES["VIDEO"]:
+      case BLOCK_TYPES["AUDIO"]:
         this._handleCommandTagChangeApply({
           tag: command.tag,
           doCurrentRefFocus: false,
@@ -105,6 +106,13 @@ class EditableBlock extends Component {
   onEmbedVideoLinkSubmitHandler = ({ embedLink }) => {
     this._updateContentObject({
       name: "videoEmbedUrl",
+      value: embedLink,
+    });
+  };
+
+  onEmbedAudioLinkSubmitHandler = ({ embedLink }) => {
+    this._updateContentObject({
+      name: "audioEmbedUrl",
       value: embedLink,
     });
   };
@@ -138,6 +146,13 @@ class EditableBlock extends Component {
           <VideoBlock
             data={block}
             onEmbedLinkSubmit={this.onEmbedVideoLinkSubmitHandler}
+          />
+        );
+      case BLOCK_TYPES["AUDIO"]:
+        return (
+          <AudioBlock
+            data={block}
+            onEmbedLinkSubmit={this.onEmbedAudioLinkSubmitHandler}
           />
         );
       default:
