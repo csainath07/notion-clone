@@ -15,8 +15,9 @@ const GET_NEW_BLANK_BLOCK = () => ({
   content: {
     parentTag: "p",
     innerHtml: "",
+    htmlCode: "",
+    imageEmbedUrl: "",
   },
-  html: "",
 });
 
 class EditablePage extends Component {
@@ -26,19 +27,30 @@ class EditablePage extends Component {
 
   // Adding new block
   addNewContentBlockHandler = ({ currentBlockId, currentBlockRef }) => {
-    const _blocks = [...this.state.blocks];
-    const currentBlockIndex = this._getCurrentBlockIndex(currentBlockId);
-    if (currentBlockIndex !== -1) {
-      _blocks.splice(currentBlockIndex + 1, 0, GET_NEW_BLANK_BLOCK());
-      this.setState(
-        {
-          blocks: [..._blocks],
-        },
-        () => {
-          this._getNextContentEditableBlockRef(currentBlockRef)?.focus();
-        }
-      );
-    }
+    this._addBlock({
+      currentBlockId,
+      currentBlockRef,
+      newBlock: GET_NEW_BLANK_BLOCK(),
+      focusOnNextBlock: true,
+      createExtraContentField: false,
+    });
+  };
+
+  // Adding new media content block
+  addNewMediaContentBlockHandler = ({
+    currentBlockId,
+    currentBlockRef,
+    type,
+  }) => {
+    const _newBlock = GET_NEW_BLANK_BLOCK();
+    _newBlock.type = type;
+    this._addBlock({
+      currentBlockId,
+      currentBlockRef,
+      newBlock: _newBlock,
+      focusOnNextBlock: false,
+      createExtraContentField: true,
+    });
   };
 
   // Updating blocks
@@ -76,6 +88,7 @@ class EditablePage extends Component {
             onDeleteBlock={this.deleteContentBlockHandler}
             onUpdateBlock={this.updateContentBlocksHandler}
             onAddNewBlock={this.addNewContentBlockHandler}
+            onAddNewMediaBlock={this.addNewMediaContentBlockHandler}
           />
         ))}
       </section>
@@ -83,6 +96,33 @@ class EditablePage extends Component {
   }
 
   /** Private methods */
+  _addBlock = ({
+    currentBlockId,
+    currentBlockRef,
+    newBlock,
+    focusOnNextBlock,
+    createExtraContentField,
+  }) => {
+    const _blocks = [...this.state.blocks];
+    const currentBlockIndex = this._getCurrentBlockIndex(currentBlockId);
+    if (currentBlockIndex !== -1) {
+      _blocks.splice(currentBlockIndex + 1, 0, newBlock);
+      //Add extra content field
+      if (createExtraContentField) {
+        _blocks.splice(currentBlockIndex + 2, 0, GET_NEW_BLANK_BLOCK());
+      }
+
+      this.setState(
+        {
+          blocks: [..._blocks],
+        },
+        () => {
+          if (focusOnNextBlock)
+            this._getNextContentEditableBlockRef(currentBlockRef)?.focus();
+        }
+      );
+    }
+  };
   _getNextContentEditableBlockRef = (currentBlockRef) => {
     return currentBlockRef?.parentElement?.parentElement?.nextElementSibling
       ?.children?.[1]?.children?.[0];

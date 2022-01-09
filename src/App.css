@@ -11,3 +11,20 @@
 .editable-block_html:focus {
   outline: none;
 }
+
+input {
+  width: 80%;
+  padding: 5px;
+  border-radius: 2px;
+  border: none;
+  border: 1px solid #808080;
+}
+
+button {
+  padding: 5px 15px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  background: #7b77ee;
+  color: #fff;
+}

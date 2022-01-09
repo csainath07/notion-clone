@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ContentEditable from "react-contenteditable";
 import { Plus, Trash2 } from "react-feather";
+import { ImageBlock } from "../MediaBlocks";
 import CommandPopup from "../CommandPopup/CommandPopup";
 import { BLOCK_TYPES } from "../../utils/constants";
 
@@ -72,26 +73,43 @@ class EditableBlock extends Component {
   onCommandSelectHandler = (command) => {
     switch (command.type) {
       case BLOCK_TYPES["HTML"]:
-        this.setState(
-          {
-            data: {
-              ...this.state.data,
-              content: {
-                ...this.state.data.content,
-                parentTag: command.tag,
-                innerHtml: this.state.backupHtml,
-              },
-            },
-          },
-          () => {
-            this._handleCommandPopupClose();
-            this.currentBlockRef?.current?.focus();
-          }
-        );
+        this._handleCommandTagChangeApply({
+          tag: command.tag,
+          doCurrentRefFocus: true,
+        });
+        break;
+      case BLOCK_TYPES["IMAGE"]:
+        this._handleCommandTagChangeApply({
+          tag: command.tag,
+          doCurrentRefFocus: false,
+          callBackFn: this.props.onAddNewMediaBlock({
+            currentBlockId: this.state?.data?.id,
+            currentBlockRef: this.currentBlockRef?.current,
+            type: BLOCK_TYPES["IMAGE"],
+          }),
+        });
+
         break;
       default:
         return;
     }
+  };
+
+  onEmbedImageLinkSubmitHandler = ({ embedLink }) => {
+    this.setState(
+      {
+        data: {
+          ...this.state.data,
+          content: {
+            ...this.state.data.content,
+            imageEmbedUrl: embedLink,
+          },
+        },
+      },
+      () => {
+        this.props.onUpdateBlock(this.state.data);
+      }
+    );
   };
 
   /** Render different type of command blocks */
@@ -109,6 +127,13 @@ class EditableBlock extends Component {
             onChange={this.contentEditableChangeHandler}
             onKeyDown={this.contentEditableKeyDownHandler}
             onKeyUp={this.contentEditableKeyUpHandler}
+          />
+        );
+      case BLOCK_TYPES["IMAGE"]:
+        return (
+          <ImageBlock
+            data={block}
+            onEmbedLinkSubmit={this.onEmbedImageLinkSubmitHandler}
           />
         );
       default:
@@ -141,9 +166,12 @@ class EditableBlock extends Component {
             {this.renderContentBlock(this.state.data)}
 
             {/* Render custom placeholder */}
-            {this._isPlaceholderVisible(this.state?.data?.content) ? (
+            {this._isPlaceholderVisible(
+              this.state?.data?.content,
+              this.state?.data?.type
+            ) ? (
               <div className={Styles.contentPlaceholder}>
-                <p>Start typing...</p>
+                <p>Type '/' for commands</p>
               </div>
             ) : null}
           </div>
@@ -161,8 +189,28 @@ class EditableBlock extends Component {
   }
 
   /** Private Methods */
-  _isPlaceholderVisible = (content) =>
-    content?.innerHtml === "" || content?.innerHtml === "<br>";
+  _handleCommandTagChangeApply = ({ tag, callBackFn, doCurrentRefFocus }) => {
+    this.setState(
+      {
+        data: {
+          ...this.state.data,
+          content: {
+            ...this.state.data.content,
+            parentTag: tag,
+            innerHtml: this.state.backupHtml,
+          },
+        },
+      },
+      () => {
+        this._handleCommandPopupClose();
+        doCurrentRefFocus && this.currentBlockRef?.current?.focus();
+        callBackFn?.();
+      }
+    );
+  };
+  _isPlaceholderVisible = (content, _type) =>
+    _type === BLOCK_TYPES["HTML"] &&
+    (content?.innerHtml === "" || content?.innerHtml === "<br>");
 
   _addNewBlock = () => {
     this.props.onAddNewBlock({

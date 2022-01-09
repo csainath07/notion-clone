@@ -1,3 +1,4 @@
+import { Bold, Edit2, Image } from "react-feather";
 import { BLOCK_TYPES } from "../../utils/constants";
 import Styles from "./_.module.css";
 
@@ -8,6 +9,7 @@ const COMMANDS = {
     options: [
       {
         id: "command-basic_p",
+        icon: <Edit2 size={20} />,
         label: "Normal Text",
         subText: "Just start writing with pain text",
         tag: "p",
@@ -15,6 +17,7 @@ const COMMANDS = {
       },
       {
         id: "command-basic_strong",
+        icon: <Bold size={20} />,
         label: <strong>Bold</strong>,
         subText: "Just start writing with bold text",
         tag: "strong",
@@ -27,6 +30,7 @@ const COMMANDS = {
     options: [
       {
         id: "command-headings_h1",
+        icon: <Edit2 size={20} />,
         label: "Heading 1",
         subText: "Big section heading",
         tag: "h1",
@@ -34,6 +38,7 @@ const COMMANDS = {
       },
       {
         id: "command-headings_h2",
+        icon: <Edit2 size={20} />,
         label: "Heading 2",
         subText: "Medium section heading",
         tag: "h2",
@@ -41,10 +46,24 @@ const COMMANDS = {
       },
       {
         id: "command-headings_h3",
+        icon: <Edit2 size={20} />,
         label: "Heading 3",
         subText: "small section heading",
         tag: "h3",
         type: BLOCK_TYPES["HTML"],
+      },
+    ],
+  },
+  media: {
+    title: "Media",
+    options: [
+      {
+        id: "command-media_img",
+        icon: <Image size={20} />,
+        label: "Image",
+        subText: "Upload or Embed with link",
+        tag: "div",
+        type: BLOCK_TYPES["IMAGE"],
       },
     ],
   },
@@ -59,6 +78,7 @@ const CommandPopup = ({ commandPopupPosition, onCommandSelect }) => {
         role="button"
         onClick={() => onCommandSelect(command)}
       >
+        <div className={Styles.commandIcon}>{command.icon}</div>
         <div className={Styles.commandInfo}>
           <span>{command.label}</span>
           <p>{command.subText}</p>
