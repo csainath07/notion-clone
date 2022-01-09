@@ -1,4 +1,4 @@
-import { Bold, Edit2, Image, Film, Volume2 } from "react-feather";
+import { Bold, Type, Image, Film, Volume2 } from "react-feather";
 import { BLOCK_TYPES } from "../../utils/constants";
 import Styles from "./_.module.css";
 
@@ -9,7 +9,7 @@ const COMMANDS = {
     options: [
       {
         id: "command-basic_p",
-        icon: <Edit2 size={20} />,
+        icon: <Type size={20} />,
         label: "Normal Text",
         subText: "Just start writing with pain text",
         tag: "p",
@@ -18,7 +18,7 @@ const COMMANDS = {
       {
         id: "command-basic_strong",
         icon: <Bold size={20} />,
-        label: <strong>Bold</strong>,
+        label: "Bold",
         subText: "Just start writing with bold text",
         tag: "strong",
         type: BLOCK_TYPES["HTML"],
@@ -30,7 +30,7 @@ const COMMANDS = {
     options: [
       {
         id: "command-headings_h1",
-        icon: <Edit2 size={20} />,
+        icon: <Type size={20} />,
         label: "Heading 1",
         subText: "Big section heading",
         tag: "h1",
@@ -38,7 +38,7 @@ const COMMANDS = {
       },
       {
         id: "command-headings_h2",
-        icon: <Edit2 size={20} />,
+        icon: <Type size={20} />,
         label: "Heading 2",
         subText: "Medium section heading",
         tag: "h2",
@@ -46,7 +46,7 @@ const COMMANDS = {
       },
       {
         id: "command-headings_h3",
-        icon: <Edit2 size={20} />,
+        icon: <Type size={20} />,
         label: "Heading 3",
         subText: "small section heading",
         tag: "h3",

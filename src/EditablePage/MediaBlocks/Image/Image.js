@@ -9,7 +9,7 @@ const ImageBlock = ({ data, onEmbedLinkSubmit }) => {
 
   const onSubmitHandler = () => {
     if (embedLink !== "") {
-      onEmbedLinkSubmit?.({ embedLink });
+      onEmbedLinkSubmit?.({ key: "imageEmbedUrl", embedLink });
     }
   };
   return (

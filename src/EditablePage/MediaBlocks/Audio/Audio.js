@@ -9,7 +9,7 @@ const AudioBlock = ({ data, onEmbedLinkSubmit }) => {
 
   const onSubmitHandler = () => {
     if (embedLink !== "") {
-      onEmbedLinkSubmit?.({ embedLink });
+      onEmbedLinkSubmit?.({ key: "audioEmbedUrl", embedLink });
     }
   };
   return (

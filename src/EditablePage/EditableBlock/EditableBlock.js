@@ -96,23 +96,9 @@ class EditableBlock extends Component {
     }
   };
 
-  onEmbedImageLinkSubmitHandler = ({ embedLink }) => {
+  onEmbedLinkSubmitHandler = ({ key, embedLink }) => {
     this._updateContentObject({
-      name: "imageEmbedUrl",
-      value: embedLink,
-    });
-  };
-
-  onEmbedVideoLinkSubmitHandler = ({ embedLink }) => {
-    this._updateContentObject({
-      name: "videoEmbedUrl",
-      value: embedLink,
-    });
-  };
-
-  onEmbedAudioLinkSubmitHandler = ({ embedLink }) => {
-    this._updateContentObject({
-      name: "audioEmbedUrl",
+      name: key,
       value: embedLink,
     });
   };
@@ -138,21 +124,21 @@ class EditableBlock extends Component {
         return (
           <ImageBlock
             data={block}
-            onEmbedLinkSubmit={this.onEmbedImageLinkSubmitHandler}
+            onEmbedLinkSubmit={this.onEmbedLinkSubmitHandler}
           />
         );
       case BLOCK_TYPES["VIDEO"]:
         return (
           <VideoBlock
             data={block}
-            onEmbedLinkSubmit={this.onEmbedVideoLinkSubmitHandler}
+            onEmbedLinkSubmit={this.onEmbedLinkSubmitHandler}
           />
         );
       case BLOCK_TYPES["AUDIO"]:
         return (
           <AudioBlock
             data={block}
-            onEmbedLinkSubmit={this.onEmbedAudioLinkSubmitHandler}
+            onEmbedLinkSubmit={this.onEmbedLinkSubmitHandler}
           />
         );
       default:

@@ -23,7 +23,7 @@ const VideoBlock = ({ data, onEmbedLinkSubmit }) => {
   const onSubmitHandler = () => {
     if (embedLink !== "") {
       const url = _checkAndGetYoutubeEmbedUrl(embedLink);
-      onEmbedLinkSubmit?.({ embedLink: url });
+      onEmbedLinkSubmit?.({ key: "videoEmbedUrl", embedLink: url });
     }
   };
 

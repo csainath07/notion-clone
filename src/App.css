@@ -3,6 +3,10 @@
   max-width: 900px;
 }
 
+p.editable-block_html {
+  font-size: 13px;
+}
+
 .editable-block_html {
   position: relative;
   z-index: 1;
