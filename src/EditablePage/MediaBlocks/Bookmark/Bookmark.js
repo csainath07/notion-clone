@@ -15,11 +15,11 @@ const BookmarkBlock = ({ data, onEmbedLinkSubmit }) => {
       setLoading(true);
       try {
         const resp = await fetch(
-          `https://website-metadata.p.rapidapi.com/MetaData/GetMetadata?Url=${embedLink}`,
+          `https://link-preview4.p.rapidapi.com/?url=${embedLink}&oembed=false`,
           {
             method: "GET",
             headers: {
-              "x-rapidapi-host": "website-metadata.p.rapidapi.com",
+              "x-rapidapi-host": "link-preview4.p.rapidapi.com",
               "x-rapidapi-key": process.env.REACT_APP_OPEN_METADATA_API_KEY,
             },
           }
@@ -39,9 +39,9 @@ const BookmarkBlock = ({ data, onEmbedLinkSubmit }) => {
     <div className={Styles.mediaBookmarkBlockContainer}>
       {data?.content?.bookmarkEmbedUrl ? (
         <BookmarkPreview
-          title={linkMetaData?.["og:title"]}
-          description={linkMetaData?.["og:description"]}
-          image={linkMetaData?.["og:image"]}
+          title={linkMetaData?.["title"]}
+          description={linkMetaData?.["ogp"]?.["og:description"]?.[0]}
+          image={linkMetaData?.["ogp"]?.["og:image"]?.[0]}
           url={data?.content?.bookmarkEmbedUrl}
         />
       ) : (
